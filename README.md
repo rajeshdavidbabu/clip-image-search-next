@@ -1,6 +1,10 @@
-# CLIP Image Search Application
+# CLIP Text-to-Image Search Application
 
 This project consists of two main components: a CLIP embedding service and a Next.js image search application. Before running these services, you need to prepare the dataset using the Jupyter notebook.
+
+# DEMO
+![ScreenRecording2024-10-25at23 24 50-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/4dfb6f82-b007-4a36-bccf-9353035d6dce)
+
 
 ## Prerequisites
 
