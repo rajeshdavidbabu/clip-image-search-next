@@ -10,7 +10,7 @@ This Jupyter notebook prepares and processes the Unsplash Lite dataset, creating
 
 ## Setup
 
-1. Clone this repository:
+1. Step into the directory :
 
    ```
    cd prepare-dataset-notebook
