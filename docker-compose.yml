@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  clipfastapi:
+    build:
+      context: ./clip-fast-api
+      args:
+        CLIP_MODEL_ID: ${CLIP_MODEL_ID}
+    environment:
+      DEBUG: 1
+      PYTHONUNBUFFERED: 1
+      CLIP_MODEL_ID: ${CLIP_MODEL_ID}
+    volumes:
+      - ./clip-fast-api/app:/code/app
+    ports:
+      - 8000:8000
+    restart: on-failure
+    networks:
+      - app-network
+
+  # Reference: https://medium.com/@elifront/best-next-js-docker-compose-hot-reload-production-ready-docker-setup-28a9125ba1dc
+  clipimagesearch:
+    build:
+      context: ./clip-image-search
+      args:
+        - PINECONE_API_KEY=${PINECONE_API_KEY}
+        - PINECONE_INDEX_NAME=${PINECONE_INDEX_NAME}
+    environment:
+      - NEXT_PUBLIC_API_URL=http://clipfastapi:8000
+    volumes:
+      - ./clip-image-search:/app
+      - /app/node_modules # exclude node_modules from the bind
+      - /app/.next # exclude .next from the bind
+    ports:
+      - 3000:3000
+    depends_on:
+      - clipfastapi
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
